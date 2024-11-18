@@ -1,14 +1,14 @@
 package com.sprint.mission.discodeit;
 
 import com.sprint.mission.discodeit.model.*;
+import com.sprint.mission.discodeit.repository.*;
+import com.sprint.mission.discodeit.repository.file.*;
 import com.sprint.mission.discodeit.service.*;
-import com.sprint.mission.discodeit.service.file.*;
-import com.sprint.mission.discodeit.service.jcf.*;
+import com.sprint.mission.discodeit.service.basic.*;
 
-import java.io.File;
 import java.util.List;
 
-public class DiscodeitAdvancedJavaApplication {
+public class DiscodeitLayeredJavaApplication {
     static List<User> setUpUsers(UserService userService) {
         // User
         User user1 = userService.createUser("woody", "woody@codeit.com", "woody1234", "https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-20810-10n7ovy_9b42e613.jpeg");
@@ -44,14 +44,16 @@ public class DiscodeitAdvancedJavaApplication {
 
     public static void main(String[] args) {
         // Service Initialization
-        UserService userService = new FileUserService();
-        CategoryService categoryService = new FileCategoryService();
-        ChannelService channelService = new FileChannelService(categoryService, userService);
-        MessageService messageService = new FileMessageService(userService, channelService);
-        DirectMessageService directMessageService = new FileDirectMessageService(userService);
+        UserService userService = new BasicUserService();
+        CategoryService categoryService = new BasicCategoryService();
+        ChannelService channelService = new BasicChannelService();
+        MessageService messageService = new BasicMessageService();
+        DirectMessageService directMessageService = new BasicDirectMessageService();
+
         // Set up
         List<User> users = setUpUsers(userService);
         Category category = setUpCategory(categoryService);
+
         // Test
         Channel channel = channelTest(channelService, category, users.get(0));
         messageTest(messageService, users.get(0), channel);
