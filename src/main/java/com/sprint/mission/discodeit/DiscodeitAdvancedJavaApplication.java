@@ -2,8 +2,10 @@ package com.sprint.mission.discodeit;
 
 import com.sprint.mission.discodeit.model.*;
 import com.sprint.mission.discodeit.service.*;
+import com.sprint.mission.discodeit.service.file.*;
 import com.sprint.mission.discodeit.service.jcf.*;
 
+import java.io.File;
 import java.util.List;
 
 public class DiscodeitAdvancedJavaApplication {
@@ -42,11 +44,11 @@ public class DiscodeitAdvancedJavaApplication {
 
     public static void main(String[] args) {
         // Service Initialization
-        UserService userService = new JCFUserService();
-        CategoryService categoryService = new JCFCategoryService();
-        ChannelService channelService = new JCFChannelService(categoryService, userService);
-        MessageService messageService = new JCFMessageService(userService, channelService);
-        DirectMessageService directMessageService = new JCFDirectMessageService(userService);
+        UserService userService = new FileUserService();
+        CategoryService categoryService = new FileCategoryService();
+        ChannelService channelService = new FileChannelService(categoryService, userService);
+        MessageService messageService = new FileMessageService(userService, channelService);
+        DirectMessageService directMessageService = new FileDirectMessageService(userService);
         // Set up
         List<User> users = setUpUsers(userService);
         Category category = setUpCategory(categoryService);
