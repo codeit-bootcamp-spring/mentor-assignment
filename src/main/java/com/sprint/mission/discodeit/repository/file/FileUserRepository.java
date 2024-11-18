@@ -65,7 +65,7 @@ public class FileUserRepository implements UserRepository {
         ) {
             oos.writeObject(data);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 }
